@@ -22,3 +22,14 @@
 | caption        |   text    |              not null |
 | createdAt      | timestamp |              not null |
 | updatedAt      | timestamp |              not null |
+
+## **comments**
+
+| attribute name | data type |               details |
+| -------------- | :-------: | --------------------: |
+| id             |  integer  | not null, primary key |
+| userId         |  integer  | not null, foreign key |
+| postId         |  integer  | not null, foreign key |
+| comment        |  string   |              not null |
+| createdAt      | timestamp |              not null |
+| updatedAt      | timestamp |              not null |
