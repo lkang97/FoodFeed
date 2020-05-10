@@ -1,0 +1,14 @@
+- /
+  - Splash Page
+- /login
+  - Session Form
+- /signup
+  - Session Form
+- /main
+  - Navigation bar
+- /user/:id
+  - User profile page
+- /post/new
+  - New post form
+- /post/:id
+  - View a specific post

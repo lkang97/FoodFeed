@@ -5,9 +5,11 @@
 | attribute name | data type |               details |
 | -------------- | :-------: | --------------------: |
 | id             |  integer  | not null, primary key |
-| fullName       |  string   |              not null |
 | username       |  string   |      not null, unique |
 | email          |  string   |      not null, unique |
+| profileName    |  string   |              optional |
+| imageUrl       |  string   |              not null |
+| biography      |  string   |              optional |
 | hashedPassword |  string   |     not null (binary) |
 | createdAt      | timestamp |              not null |
 | updatedAt      | timestamp |              not null |
@@ -31,5 +33,15 @@
 | userId         |  integer  | not null, foreign key |
 | postId         |  integer  | not null, foreign key |
 | comment        |  string   |              not null |
+| createdAt      | timestamp |              not null |
+| updatedAt      | timestamp |              not null |
+
+## **likes**
+
+| attribute name | data type |               details |
+| -------------- | :-------: | --------------------: |
+| id             |  integer  | not null, primary key |
+| userId         |  integer  | not null, foreign key |
+| postId         |  integer  | not null, foreign key |
 | createdAt      | timestamp |              not null |
 | updatedAt      | timestamp |              not null |
