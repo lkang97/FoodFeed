@@ -1,14 +1,21 @@
 - /
   - Splash Page
+  - Login form
 - /login
   - Session Form
 - /signup
   - Session Form
 - /main
   - Navigation bar
+  - Feed that shows all posts
 - /user/:id
   - User profile page
+  - Displays user information
+  - Displays all the posts for the user
+- /user/:id/edit
+  - edit form for profile
 - /post/new
   - New post form
 - /post/:id
   - View a specific post
+  - Pops up as a modal
