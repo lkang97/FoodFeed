@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useContext } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-function App() {
-  return <h1>Hello world!!!!!</h1>;
-}
+import { ProtectedRoute } from "./Routes";
+import { UserContext } from "./UserContext";
+
+import Splash from "./components/Splash";
+
+const App = () => {
+  const { needLogin } = useContext(UserContext);
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route exact={true} path="/" component={Splash}></Route>
+      </Switch>
+    </BrowserRouter>
+  );
+};
 
 export default App;

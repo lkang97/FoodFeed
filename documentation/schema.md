@@ -9,7 +9,7 @@
 | email          |  string   |      not null, unique |
 | profileName    |  string   |              optional |
 | imageUrl       |  string   |              not null |
-| biography      |  string   |              optional |
+| biography      |   text    |              optional |
 | hashedPassword |  string   |     not null (binary) |
 | createdAt      | timestamp |              not null |
 | updatedAt      | timestamp |              not null |
@@ -32,7 +32,7 @@
 | id             |  integer  | not null, primary key |
 | userId         |  integer  | not null, foreign key |
 | postId         |  integer  | not null, foreign key |
-| comment        |  string   |              not null |
+| comment        |   text    |              not null |
 | createdAt      | timestamp |              not null |
 | updatedAt      | timestamp |              not null |
 
