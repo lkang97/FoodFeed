@@ -19,9 +19,13 @@ const LoginForm = () => {
     });
 
     if (response.ok) {
-      const { token, id } = await response.json();
+      const {
+        token,
+        user: { id },
+      } = await response.json();
       setLoggedIn(true);
       signIn(token, id);
+      console.log(id);
     }
   };
 
