@@ -8,13 +8,37 @@ import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button } from "@material-ui/core/";
 
 const useStyles = makeStyles((theme) => ({
+  loginContainer: {
+    display: "flex",
+    justifyContent: "center",
+    justifySelf: "center",
+    position: "relative",
+  },
+  formContainer: {
+    border: "1px solid grey",
+    boxShadow: "0px 11px 35px 2px rgba(0, 0, 0, 0.14)",
+    width: "300px",
+    height: "350px",
+    borderRadius: "1.2em",
+  },
   form: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    padding: "5px",
+    width: "300px",
   },
   inputFields: {
     paddingBottom: "10px",
+  },
+  buttonContainer: {
+    padding: "5px",
+  },
+  button: {
+    width: "200px",
+  },
+  title: {
+    color: theme.palette.primary.main,
   },
 }));
 
@@ -51,52 +75,54 @@ const LoginForm = () => {
   if (loggedIn) return <Redirect to="/main" />;
 
   return (
-    <div>
-      <form className={classes.form} onSubmit={handleSubmit}>
-        <div className="splash-logo">
-          <h1>FoodFeed</h1>
-        </div>
-        <TextField
-          className={classes.inputFields}
-          color="secondary"
-          label="Email"
-          variant="outlined"
-        >
-          <input
+    <div className={classes.loginContainer}>
+      <div className={classes.formContainer}>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <div className={classes.title}>
+            <h1>FoodFeed</h1>
+          </div>
+          <TextField
+            className={classes.inputFields}
+            color="primary"
+            label="Email"
+            variant="outlined"
             type="email"
-            placeholder="Email"
             value={email}
             onChange={updateEmail}
-          />
-        </TextField>
-        <TextField
-          className={classes.inputFields}
-          color="secondary"
-          label="Password"
-          variant="outlined"
-        >
-          <input
+          ></TextField>
+          <TextField
+            className={classes.inputFields}
+            color="primary"
+            label="Password"
+            variant="outlined"
             type="password"
-            placeholder="Password"
             value={password}
             onChange={updatePassword}
-          />
-        </TextField>
-        <Button
-          color="primary"
-          variant="contained"
-          className="form-buttons"
-          type="submit"
-        >
-          Log In
-        </Button>
-        <Button color="primary" variant="contained" className="form-buttons">
-          Demo Log In
-        </Button>
-        <div>
-          <a href="/signup">Don't have an account? Sign up</a>
-        </div>
-      </form>
+          ></TextField>
+          <div className={classes.buttonContainer}>
+            <Button
+              className={classes.button}
+              color="primary"
+              variant="contained"
+              type="submit"
+            >
+              Log In
+            </Button>
+          </div>
+          <div className={classes.buttonContainer}>
+            <Button
+              className={classes.button}
+              color="primary"
+              variant="contained"
+            >
+              Demo Log In
+            </Button>
+          </div>
+          <div>
+            <a href="/signup">Don't have an account? Sign up</a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

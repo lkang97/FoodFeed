@@ -1,1 +1,7 @@
 /* TODO Add site wide styles */
+
+.splash {
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+}

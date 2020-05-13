@@ -21,13 +21,13 @@ const AppWithContext = () => {
   };
 
   return (
-    <CssBaseline>
-      <Theme>
+    <Theme>
+      <CssBaseline>
         <UserContext.Provider value={{ authToken, userId, needLogin, signIn }}>
           <App />
         </UserContext.Provider>
-      </Theme>
-    </CssBaseline>
+      </CssBaseline>
+    </Theme>
   );
 };
 

@@ -4,7 +4,47 @@ import { Redirect } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import { apiBaseUrl } from "../config";
 
+import { makeStyles } from "@material-ui/core/styles";
+import { TextField, Button } from "@material-ui/core/";
+
+const useStyles = makeStyles((theme) => ({
+  signUpContainer: {
+    display: "flex",
+    justifyContent: "center",
+    justifySelf: "center",
+    position: "relative",
+  },
+  formContainer: {
+    border: "1px solid grey",
+    boxShadow: "0px 11px 35px 2px rgba(0, 0, 0, 0.14)",
+    width: "300px",
+    height: "380px",
+    borderRadius: "1.2em",
+  },
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    padding: "5px",
+    width: "300px",
+  },
+  inputFields: {
+    paddingBottom: "10px",
+  },
+  buttonContainer: {
+    padding: "5px",
+  },
+  button: {
+    width: "200px",
+  },
+  title: {
+    color: theme.palette.primary.main,
+  },
+}));
+
 const SignUpForm = () => {
+  const classes = useStyles();
+
   const { signIn } = useContext(UserContext);
   const [loggedIn, setLoggedIn] = useState(false);
   const [username, setUsername] = useState();
@@ -41,33 +81,54 @@ const SignUpForm = () => {
   if (loggedIn) return <Redirect to="/main" />;
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          value={username}
-          onChange={updateUsername}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button className="form-buttons" type="submit">
-          Sign Up
-        </button>
-        <div>
-          <a href="/login">Already have an account? Log in</a>
-        </div>
-      </form>
+    <div className={classes.signUpContainer}>
+      <div className={classes.formContainer}>
+        <form className={classes.form} onSubmit={handleSubmit}>
+          <div className={classes.title}>
+            <h1>FoodFeed</h1>
+          </div>
+          <TextField
+            className={classes.inputFields}
+            color="primary"
+            label="Username"
+            variant="outlined"
+            type="text"
+            value={username}
+            onChange={updateUsername}
+          />
+          <TextField
+            className={classes.inputFields}
+            color="primary"
+            label="Email"
+            variant="outlined"
+            type="email"
+            value={email}
+            onChange={updateEmail}
+          />
+          <TextField
+            className={classes.inputFields}
+            color="primary"
+            label="Password"
+            variant="outlined"
+            type="password"
+            value={password}
+            onChange={updatePassword}
+          />
+          <div className={classes.buttonContainer}>
+            <Button
+              className={classes.button}
+              color="primary"
+              variant="contained"
+              type="submit"
+            >
+              Sign Up
+            </Button>
+          </div>
+          <div>
+            <a href="/login">Already have an account? Log in</a>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
