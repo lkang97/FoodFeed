@@ -18,8 +18,8 @@ const App = () => {
         <Route exact={true} path="/" component={Splash}></Route>
         <Route path="/login" component={LoginForm}></Route>
         <Route path="/signup" component={SignUpForm}></Route>
-        <Route path="/main" component={MainFeed}></Route>
-        <Route path="/users/:id" component={Profile}></Route>
+        <ProtectedRoute path="/main" component={MainFeed}></ProtectedRoute>
+        <ProtectedRoute path="/users/:id" component={Profile}></ProtectedRoute>
       </Switch>
     </BrowserRouter>
   );

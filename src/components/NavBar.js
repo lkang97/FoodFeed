@@ -68,10 +68,6 @@ const NavBar = () => {
   const { userId } = useContext(UserContext);
   const classes = useStyles();
 
-  const loadProfile = () => {
-    return <Redirect to={`/users/${userId}`} />;
-  };
-
   return (
     <div className={classes.grow}>
       <AppBar position="static">
@@ -97,7 +93,7 @@ const NavBar = () => {
             <IconButton color="inherit">
               <HomeIcon />
             </IconButton>
-            <IconButton color="inherit" onClick={loadProfile}>
+            <IconButton color="inherit" href={`/users/${userId}`}>
               <PersonIcon />
             </IconButton>
           </div>

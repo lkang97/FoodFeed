@@ -9,12 +9,14 @@ import Theme from "./Theme";
 
 const AppWithContext = () => {
   const localStorageToken = localStorage.getItem("food-feed-token");
+  const currentUserId = localStorage.getItem("food-feed-userId");
   const [authToken, setAuthToken] = useState(localStorageToken);
   const [needLogin, setNeedLogin] = useState(!localStorageToken);
-  const [userId, setUserId] = useState();
+  const [userId, setUserId] = useState(currentUserId);
 
   const signIn = (token, id) => {
     window.localStorage.setItem("food-feed-token", token);
+    window.localStorage.setItem("food-feed-userId", id);
     setAuthToken(token);
     setUserId(id);
     setNeedLogin(false);
