@@ -1,7 +1,11 @@
 import React, { useState } from "react";
+
+import CssBaseline from "@material-ui/core/CssBaseline";
+
 import App from "./App";
 import { UserContext } from "./UserContext";
 import { apiBaseUrl } from "./config";
+import Theme from "./Theme";
 
 const AppWithContext = () => {
   const localStorageToken = localStorage.getItem("food-feed-token");
@@ -17,9 +21,13 @@ const AppWithContext = () => {
   };
 
   return (
-    <UserContext.Provider value={{ authToken, userId, needLogin, signIn }}>
-      <App />
-    </UserContext.Provider>
+    <CssBaseline>
+      <Theme>
+        <UserContext.Provider value={{ authToken, userId, needLogin, signIn }}>
+          <App />
+        </UserContext.Provider>
+      </Theme>
+    </CssBaseline>
   );
 };
 

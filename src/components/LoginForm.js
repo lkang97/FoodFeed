@@ -4,7 +4,23 @@ import { Redirect } from "react-router-dom";
 import { UserContext } from "../UserContext";
 import { apiBaseUrl } from "../config";
 
+import { makeStyles } from "@material-ui/core/styles";
+import { TextField, Button } from "@material-ui/core/";
+
+const useStyles = makeStyles((theme) => ({
+  form: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  inputFields: {
+    paddingBottom: "10px",
+  },
+}));
+
 const LoginForm = () => {
+  const classes = useStyles();
+
   const { signIn } = useContext(UserContext);
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState();
@@ -36,23 +52,47 @@ const LoginForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={updateEmail}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={updatePassword}
-        />
-        <button className="form-buttons" type="submit">
+      <form className={classes.form} onSubmit={handleSubmit}>
+        <div className="splash-logo">
+          <h1>FoodFeed</h1>
+        </div>
+        <TextField
+          className={classes.inputFields}
+          color="secondary"
+          label="Email"
+          variant="outlined"
+        >
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={updateEmail}
+          />
+        </TextField>
+        <TextField
+          className={classes.inputFields}
+          color="secondary"
+          label="Password"
+          variant="outlined"
+        >
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={updatePassword}
+          />
+        </TextField>
+        <Button
+          color="primary"
+          variant="contained"
+          className="form-buttons"
+          type="submit"
+        >
           Log In
-        </button>
-        <button className="form-buttons">Demo Log In</button>
+        </Button>
+        <Button color="primary" variant="contained" className="form-buttons">
+          Demo Log In
+        </Button>
         <div>
           <a href="/signup">Don't have an account? Sign up</a>
         </div>

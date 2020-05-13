@@ -6,9 +6,6 @@ const Splash = () => {
     <div className="splash">
       <div className="splash-img"></div>
       <div className="splash-form-container">
-        <div className="splash-logo">
-          <h1>FoodFeed</h1>
-        </div>
         <div className="splash-form">
           <LoginForm />
         </div>
