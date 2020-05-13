@@ -5,23 +5,23 @@ import { UserContext } from "../UserContext";
 import { apiBaseUrl } from "../config";
 
 const LoginForm = () => {
-  const { login } = useContext(UserContext);
+  const { signIn } = useContext(UserContext);
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${apiBaseUrl}/token`, {
+    const response = await fetch(`${apiBaseUrl}/users/token`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     });
 
     if (response.ok) {
-      const { token } = await response.json();
+      const { token, id } = await response.json();
       setLoggedIn(true);
-      login(token);
+      signIn(token, id);
     }
   };
 
@@ -34,7 +34,7 @@ const LoginForm = () => {
     <div>
       <form onSubmit={handleSubmit}>
         <input
-          type="text"
+          type="email"
           placeholder="Email"
           value={email}
           onChange={updateEmail}
@@ -48,6 +48,10 @@ const LoginForm = () => {
         <button className="form-buttons" type="submit">
           Log In
         </button>
+        <button className="form-buttons">Demo Log In</button>
+        <div>
+          <a href="/signup">Don't have an account? Sign up</a>
+        </div>
       </form>
     </div>
   );
