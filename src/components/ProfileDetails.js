@@ -71,9 +71,13 @@ const ProfileDetails = () => {
             <h1>{username}</h1>
           </div>
           <div className={classes.button}>
-            <Button variant="contained" href={`/users/${userId}/edit`}>
-              Edit Profile
-            </Button>
+            {userId === id ? (
+              <Button variant="contained" href={`/users/${userId}/edit`}>
+                Edit Profile
+              </Button>
+            ) : (
+              <div></div>
+            )}
           </div>
         </div>
         <div className={classes.profileName}>{profileName}</div>

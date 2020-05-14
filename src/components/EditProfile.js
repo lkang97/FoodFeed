@@ -69,15 +69,16 @@ const EditProfile = () => {
   const classes = useStyles();
   const { id } = useParams();
 
-  const { authToken } = useContext(UserContext);
+  const { authToken, userId } = useContext(UserContext);
 
   const [profileName, setProfileName] = useState();
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [biography, setBiography] = useState();
   const [imageUrl, setImageUrl] = useState();
-  const [open, setOpen] = useState();
-  const [modalStyle] = useState(getModalStyle);
+  const [isUpdated, setIsUpdated] = useState(false);
+  //   const [open, setOpen] = useState();
+  //   const [modalStyle] = useState(getModalStyle);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -115,11 +116,12 @@ const EditProfile = () => {
         email,
         biography,
         imageUrl,
+        userId,
       }),
     });
 
     if (response.ok) {
-      return <Redirect to={`/users/${id}`} />;
+      setIsUpdated(true);
     }
   };
 
@@ -128,20 +130,20 @@ const EditProfile = () => {
   const updateEmail = (e) => setEmail(e.target.value);
   const updateBiography = (e) => setBiography(e.target.value);
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  //   const handleOpen = () => {
+  //     setOpen(true);
+  //   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  //   const handleClose = () => {
+  //     setOpen(false);
+  //   };
 
-  const imageModal = (
-    <div style={modalStyle} className={classes.paper}>
-      <h2>Text in a modal</h2>
-      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-    </div>
-  );
+  //   const imageModal = (
+  //     <div style={modalStyle} className={classes.paper}>
+  //       <h2>Text in a modal</h2>
+  //       <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+  //     </div>
+  //   );
 
   const uploadImage = async (e) => {
     console.log(e.target.files);
@@ -159,6 +161,8 @@ const EditProfile = () => {
       setImageUrl(imageUrl);
     }
   };
+
+  if (isUpdated) return <Redirect to={`/users/${id}`} />;
 
   return (
     <div>
@@ -183,9 +187,9 @@ const EditProfile = () => {
                   <AddAPhotoIcon variant="raised"></AddAPhotoIcon>
                 </label>
               </IconButton>
-              <Modal open={open} onClose={handleClose}>
+              {/* <Modal open={open} onClose={handleClose}>
                 {imageModal}
-              </Modal>
+              </Modal> */}
             </div>
           </div>
           <TextField

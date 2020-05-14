@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { apiBaseUrl } from "../config";
-
+import ProfileImageCard from "./ProfileImageCard";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import { useParams } from "react-router-dom";
@@ -31,7 +31,7 @@ const ProfileImages = () => {
     // ></Grid>
     <div>
       {posts.map((post) => {
-        return <img key={post.id} src={post.imageUrl} alt="post" />;
+        return <ProfileImageCard key={post.id} imageUrl={post.imageUrl} />;
       })}
     </div>
   );
