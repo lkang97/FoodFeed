@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
+
 import NavBar from "./NavBar";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,9 +7,26 @@ import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import { TextField, Button } from "@material-ui/core/";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import Modal from "@material-ui/core/Modal";
+
 import { apiBaseUrl } from "../config";
-import { useParams } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { UserContext } from "../UserContext";
+
+function rand() {
+  return Math.round(Math.random() * 20) - 10;
+}
+
+function getModalStyle() {
+  const top = 50 + rand();
+  const left = 50 + rand();
+
+  return {
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`,
+  };
+}
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -37,6 +55,14 @@ const useStyles = makeStyles((theme) => ({
   button: {
     width: "200px",
   },
+  paper: {
+    position: "absolute",
+    width: 400,
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
 }));
 
 const EditProfile = () => {
@@ -50,6 +76,8 @@ const EditProfile = () => {
   const [email, setEmail] = useState();
   const [biography, setBiography] = useState();
   const [imageUrl, setImageUrl] = useState();
+  const [open, setOpen] = useState();
+  const [modalStyle] = useState(getModalStyle);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -81,14 +109,56 @@ const EditProfile = () => {
         "Content-Type": "application/json",
         Authorization: `Bearer ${authToken}`,
       },
-      body: JSON.stringify({ profileName, username, email }),
+      body: JSON.stringify({
+        profileName,
+        username,
+        email,
+        biography,
+        imageUrl,
+      }),
     });
+
+    if (response.ok) {
+      return <Redirect to={`/users/${id}`} />;
+    }
   };
 
   const updateProfileName = (e) => setProfileName(e.target.value);
   const updateUsername = (e) => setUsername(e.target.value);
   const updateEmail = (e) => setEmail(e.target.value);
   const updateBiography = (e) => setBiography(e.target.value);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const imageModal = (
+    <div style={modalStyle} className={classes.paper}>
+      <h2>Text in a modal</h2>
+      <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
+    </div>
+  );
+
+  const uploadImage = async (e) => {
+    console.log(e.target.files);
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    const image = formData.get("image");
+    console.log(image);
+
+    const response = await fetch(`${apiBaseUrl}/upload`, {
+      method: "POST",
+      body: formData,
+    });
+    if (response.ok) {
+      const { imageUrl } = await response.json();
+      setImageUrl(imageUrl);
+    }
+  };
 
   return (
     <div>
@@ -100,9 +170,23 @@ const EditProfile = () => {
           </div>
           <div>
             <Avatar src={imageUrl}></Avatar>
-            <IconButton>
-              <AddAPhotoIcon onClick={openImageModal}></AddAPhotoIcon>
-            </IconButton>
+            <div>
+              <IconButton>
+                <input
+                  accept="image/*"
+                  style={{ display: "none" }}
+                  type="file"
+                  id="raised-button-file"
+                  onChange={uploadImage}
+                ></input>
+                <label htmlFor="raised-button-file">
+                  <AddAPhotoIcon variant="raised"></AddAPhotoIcon>
+                </label>
+              </IconButton>
+              <Modal open={open} onClose={handleClose}>
+                {imageModal}
+              </Modal>
+            </div>
           </div>
           <TextField
             className={classes.inputFields}

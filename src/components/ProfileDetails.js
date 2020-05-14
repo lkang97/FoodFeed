@@ -6,7 +6,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import { UserContext } from "../UserContext";
-import Modal from "@material-ui/core/Modal";
 
 const useStyles = makeStyles((theme) => ({
   detailsContainer: {
