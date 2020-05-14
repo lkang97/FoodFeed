@@ -4,7 +4,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 
 import App from "./App";
 import { UserContext } from "./UserContext";
-import { apiBaseUrl } from "./config";
+// import { apiBaseUrl } from "./config";
 import Theme from "./Theme";
 
 const AppWithContext = () => {

@@ -1,5 +1,4 @@
-import React, { useContext, useState } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useContext } from "react";
 
 import { UserContext } from "../UserContext";
 
@@ -70,7 +69,7 @@ const NavBar = () => {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <Typography className={classes.title} variant="h6" noWrap>
             FoodFeed
@@ -90,7 +89,7 @@ const NavBar = () => {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton color="inherit">
+            <IconButton color="inherit" href="/main">
               <HomeIcon />
             </IconButton>
             <IconButton color="inherit" href={`/users/${userId}`}>
@@ -99,6 +98,7 @@ const NavBar = () => {
           </div>
         </Toolbar>
       </AppBar>
+      <Toolbar />
     </div>
   );
 };

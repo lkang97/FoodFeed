@@ -20,7 +20,7 @@ const ProfileImages = () => {
     };
 
     getUserPosts(id);
-  }, []);
+  }, [id]);
   return (
     // <Grid
     //   container

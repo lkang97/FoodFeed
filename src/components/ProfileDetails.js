@@ -1,10 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { apiBaseUrl } from "../config";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
+import { UserContext } from "../UserContext";
+import Modal from "@material-ui/core/Modal";
 
 const useStyles = makeStyles((theme) => ({
   detailsContainer: {
@@ -35,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileDetails = () => {
   const classes = useStyles();
+  const { userId } = useContext(UserContext);
   const { id } = useParams();
   const [username, setUsername] = useState();
   const [profileName, setProfileName] = useState();
@@ -69,7 +72,9 @@ const ProfileDetails = () => {
             <h1>{username}</h1>
           </div>
           <div className={classes.button}>
-            <Button variant="contained">Edit Profile</Button>
+            <Button variant="contained" href={`/users/${userId}/edit`}>
+              Edit Profile
+            </Button>
           </div>
         </div>
         <div className={classes.profileName}>{profileName}</div>
