@@ -12,6 +12,8 @@ import { CardContent } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 300,
+    display: "flex",
+    justifySelf: "center",
   },
   media: {
     height: 300,

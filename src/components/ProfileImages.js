@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: 40,
     borderTop: "1px solid lightgray",
   },
+  gridTiles: {
+    justifyContent: "center",
+  },
 }));
 
 const ProfileImages = () => {
@@ -36,10 +39,10 @@ const ProfileImages = () => {
   }, [id]);
   return (
     <div className={classes.imagesContainer}>
-      <GridList cellHeight={300} cols={3}>
+      <GridList cellHeight={330} cols={3}>
         {posts.map((post) => {
           return (
-            <GridListTile key={post.id}>
+            <GridListTile className={classes.gridTiles} key={post.id}>
               <ProfileImageCard
                 key={post.id}
                 imageUrl={post.imageUrl}
