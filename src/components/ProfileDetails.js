@@ -8,6 +8,7 @@ import Button from "@material-ui/core/Button";
 import { UserContext } from "../UserContext";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
+import EditProfile from "./EditProfile";
 
 const useStyles = makeStyles((theme) => ({
   detailsContainer: {
@@ -56,6 +57,8 @@ const ProfileDetails = () => {
   const [profileName, setProfileName] = useState();
   const [imageUrl, setImageUrl] = useState();
   const [biography, setBiography] = useState();
+  const [email, setEmail] = useState();
+
   const [open, setOpen] = useState();
 
   useEffect(() => {
@@ -67,11 +70,13 @@ const ProfileDetails = () => {
           profileName,
           imageUrl,
           biography,
+          email,
         } = await response.json();
         setUsername(username);
         setProfileName(profileName);
         setImageUrl(imageUrl);
         setBiography(biography);
+        setEmail(email);
       }
     };
     getUserDetails(id);
@@ -79,11 +84,6 @@ const ProfileDetails = () => {
 
   const handleOpen = async () => {
     setOpen(true);
-    const response = await fetch(`${apiBaseUrl}/posts/${postId}`);
-    if (response.ok) {
-      const { post } = await response.json();
-      setPost(post);
-    }
   };
 
   const handleClose = () => {
@@ -100,9 +100,29 @@ const ProfileDetails = () => {
           </div>
           <div className={classes.button}>
             {userId === id ? (
-              <Button variant="contained" href={`/users/${userId}/edit`}>
-                Edit Profile
-              </Button>
+              <div>
+                <Button variant="contained" onClick={handleOpen}>
+                  Edit Profile
+                </Button>
+                <Modal
+                  className={classes.modal}
+                  open={open}
+                  onClose={handleClose}
+                  closeAfterTransition
+                  BackdropComponent={Backdrop}
+                  BackdropProps={{ timeout: 500 }}
+                >
+                  <div className={classes.paper}>
+                    <EditProfile
+                      username={username}
+                      profileName={profileName}
+                      imageUrl={imageUrl}
+                      biography={biography}
+                      email={email}
+                    />
+                  </div>
+                </Modal>
+              </div>
             ) : (
               <div></div>
             )}

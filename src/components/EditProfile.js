@@ -7,26 +7,10 @@ import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import { TextField, Button } from "@material-ui/core/";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
-import Modal from "@material-ui/core/Modal";
 
 import { apiBaseUrl } from "../config";
 import { useParams, Redirect } from "react-router-dom";
 import { UserContext } from "../UserContext";
-
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -65,42 +49,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const EditProfile = () => {
+const EditProfile = (props) => {
   const classes = useStyles();
   const { id } = useParams();
 
   const { authToken, userId } = useContext(UserContext);
 
-  const [profileName, setProfileName] = useState();
-  const [username, setUsername] = useState();
-  const [email, setEmail] = useState();
-  const [biography, setBiography] = useState();
-  const [imageUrl, setImageUrl] = useState();
+  const [profileName, setProfileName] = useState(props.profileName);
+  const [username, setUsername] = useState(props.username);
+  const [email, setEmail] = useState(props.email);
+  const [biography, setBiography] = useState(props.biography);
+  const [imageUrl, setImageUrl] = useState(props.imageUrl);
   const [isUpdated, setIsUpdated] = useState(false);
-  //   const [open, setOpen] = useState();
-  //   const [modalStyle] = useState(getModalStyle);
-
-  useEffect(() => {
-    const getUserInfo = async () => {
-      const response = await fetch(`${apiBaseUrl}/users/${id}`);
-      if (response.ok) {
-        const {
-          username,
-          profileName,
-          imageUrl,
-          biography,
-          email,
-        } = await response.json();
-        setUsername(username);
-        setProfileName(profileName);
-        setImageUrl(imageUrl);
-        setBiography(biography);
-        setEmail(email);
-      }
-    };
-
-    getUserInfo();
-  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -129,21 +89,6 @@ const EditProfile = () => {
   const updateUsername = (e) => setUsername(e.target.value);
   const updateEmail = (e) => setEmail(e.target.value);
   const updateBiography = (e) => setBiography(e.target.value);
-
-  //   const handleOpen = () => {
-  //     setOpen(true);
-  //   };
-
-  //   const handleClose = () => {
-  //     setOpen(false);
-  //   };
-
-  //   const imageModal = (
-  //     <div style={modalStyle} className={classes.paper}>
-  //       <h2>Text in a modal</h2>
-  //       <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula.</p>
-  //     </div>
-  //   );
 
   const uploadImage = async (e) => {
     console.log(e.target.files);
@@ -187,9 +132,6 @@ const EditProfile = () => {
                   <AddAPhotoIcon variant="raised"></AddAPhotoIcon>
                 </label>
               </IconButton>
-              {/* <Modal open={open} onClose={handleClose}>
-                {imageModal}
-              </Modal> */}
             </div>
           </div>
           <TextField
