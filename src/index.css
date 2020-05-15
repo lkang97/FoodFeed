@@ -5,3 +5,8 @@
   justify-content: center;
   height: 100vh;
 }
+
+#root {
+  display: flex;
+  justify-content: center;
+}

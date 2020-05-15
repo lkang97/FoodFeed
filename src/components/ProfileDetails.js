@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     justifyContent: "center",
     paddingTop: "30px",
+    paddingBottom: "30px",
   },
   profileImage: {
     height: "180px",

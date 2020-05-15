@@ -2,10 +2,23 @@ import React, { useState, useEffect } from "react";
 import { apiBaseUrl } from "../config";
 import ProfileImageCard from "./ProfileImageCard";
 import { makeStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
+import GridList from "@material-ui/core/GridList";
+import GridListTile from "@material-ui/core/GridListTile";
 import { useParams } from "react-router-dom";
 
+const useStyles = makeStyles((theme) => ({
+  imagesContainer: {
+    width: 1000,
+    flexDirection: "row-wrap",
+    justifySelf: "center",
+    justifyContent: "center",
+    paddingTop: 40,
+    borderTop: "1px solid lightgray",
+  },
+}));
+
 const ProfileImages = () => {
+  const classes = useStyles();
   const { id } = useParams();
   const [posts, setPosts] = useState([]);
 
@@ -22,17 +35,16 @@ const ProfileImages = () => {
     getUserPosts(id);
   }, [id]);
   return (
-    // <Grid
-    //   container
-    //   spacing={3}
-    //   justify="center"
-    //   direction="row-reverse"
-    //   alignItems="center"
-    // ></Grid>
-    <div>
-      {posts.map((post) => {
-        return <ProfileImageCard key={post.id} imageUrl={post.imageUrl} />;
-      })}
+    <div className={classes.imagesContainer}>
+      <GridList cellHeight={300} cols={3}>
+        {posts.map((post) => {
+          return (
+            <GridListTile key={post.id}>
+              <ProfileImageCard key={post.id} imageUrl={post.imageUrl} />
+            </GridListTile>
+          );
+        })}
+      </GridList>
     </div>
   );
 };
