@@ -9,7 +9,6 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignupForm";
 import MainFeed from "./components/MainFeed";
 import Profile from "./components/Profile";
-import EditProfile from "./components/EditProfile";
 
 const App = () => {
   return (
@@ -23,10 +22,6 @@ const App = () => {
           exact={true}
           path="/users/:id"
           component={Profile}
-        ></ProtectedRoute>
-        <ProtectedRoute
-          path="/users/:id/edit"
-          component={EditProfile}
         ></ProtectedRoute>
       </Switch>
     </BrowserRouter>

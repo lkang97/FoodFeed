@@ -107,7 +107,7 @@ const EditProfile = (props) => {
     }
   };
 
-  if (isUpdated) return <Redirect to={`/users/${id}`} />;
+  if (isUpdated) window.location.reload();
 
   return (
     <div>
