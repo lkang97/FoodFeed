@@ -40,7 +40,11 @@ const ProfileImages = () => {
         {posts.map((post) => {
           return (
             <GridListTile key={post.id}>
-              <ProfileImageCard key={post.id} imageUrl={post.imageUrl} />
+              <ProfileImageCard
+                key={post.id}
+                imageUrl={post.imageUrl}
+                postId={post.id}
+              />
             </GridListTile>
           );
         })}
