@@ -10,3 +10,11 @@
   display: flex;
   justify-content: center;
 }
+
+.errors-container {
+  display: flex;
+  justify-self: center;
+  padding: 0px 20px 25px;
+  color: red;
+  text-align: center;
+}

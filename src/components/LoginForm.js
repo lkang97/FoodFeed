@@ -68,7 +68,8 @@ const LoginForm = () => {
         } = await response.json();
         setLoggedIn(true);
         signIn(token, id);
-        console.log(id);
+      } else {
+        throw response;
       }
     } catch (err) {
       handleErrors(err);
@@ -87,12 +88,12 @@ const LoginForm = () => {
 
   return (
     <div className={classes.loginContainer}>
-      <div className=".errors-container"></div>
       <div className={classes.formContainer}>
         <form className={classes.form} onSubmit={handleSubmit}>
           <div className={classes.title}>
             <h1>FoodFeed</h1>
           </div>
+          <div className="errors-container"></div>
           <TextField
             className={classes.inputFields}
             color="primary"
@@ -101,6 +102,7 @@ const LoginForm = () => {
             type="email"
             value={email}
             onChange={updateEmail}
+            required
           ></TextField>
           <TextField
             className={classes.inputFields}
@@ -110,6 +112,7 @@ const LoginForm = () => {
             type="password"
             value={password}
             onChange={updatePassword}
+            required
           ></TextField>
           <div className={classes.buttonContainer}>
             <Button

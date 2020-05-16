@@ -6,6 +6,7 @@ import { apiBaseUrl } from "../config";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button } from "@material-ui/core/";
+import { handleErrors } from "../utils";
 
 const useStyles = makeStyles((theme) => ({
   signUpContainer: {
@@ -61,19 +62,27 @@ const SignUpForm = () => {
       imageUrl: "",
       biography: "",
     };
-    const response = await fetch(`${apiBaseUrl}/users`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
 
-    if (response.ok) {
-      const {
-        token,
-        user: { id },
-      } = await response.json();
-      setLoggedIn(true);
-      signIn(token, id);
+    try {
+      debugger;
+      const response = await fetch(`${apiBaseUrl}/users`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      });
+
+      if (response.ok) {
+        const {
+          token,
+          user: { id },
+        } = await response.json();
+        setLoggedIn(true);
+        signIn(token, id);
+      } else {
+        throw response;
+      }
+    } catch (err) {
+      handleErrors(err);
     }
   };
 
@@ -90,6 +99,7 @@ const SignUpForm = () => {
           <div className={classes.title}>
             <h1>FoodFeed</h1>
           </div>
+          <div className="errors-container"></div>
           <TextField
             className={classes.inputFields}
             color="primary"

@@ -1,7 +1,6 @@
-import React, { useContext, useState, useEffect } from "react";
-import { Redirect } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 
-import { UserContext } from "../UserContext";
+// import { UserContext } from "../UserContext";
 import { apiBaseUrl } from "../config";
 import NavBar from "./NavBar";
 import MainFeedPost from "./MainFeedPost";

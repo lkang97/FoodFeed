@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
 
 import NavBar from "./NavBar";
 
@@ -9,7 +9,7 @@ import { TextField, Button } from "@material-ui/core/";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
 
 import { apiBaseUrl } from "../config";
-import { useParams, Redirect } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { UserContext } from "../UserContext";
 
 const useStyles = makeStyles((theme) => ({

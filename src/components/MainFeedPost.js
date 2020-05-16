@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import { CardContent } from "@material-ui/core";
@@ -76,7 +75,7 @@ const MainFeedPost = (props) => {
       }
     };
     getLikes();
-  }, [liked]);
+  }, [liked, userId, postId]);
 
   const handleLike = async () => {
     if (!liked) {
