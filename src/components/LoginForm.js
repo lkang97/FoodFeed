@@ -1,8 +1,9 @@
 import React, { useContext, useState } from "react";
 import { Redirect } from "react-router-dom";
+import { handleErrors } from "../utils";
 
 import { UserContext } from "../UserContext";
-import { apiBaseUrl } from "../config";
+import { apiBaseUrl, demo } from "../config";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button } from "@material-ui/core/";
@@ -53,21 +54,30 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${apiBaseUrl}/users/token`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch(`${apiBaseUrl}/users/token`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    if (response.ok) {
-      const {
-        token,
-        user: { id },
-      } = await response.json();
-      setLoggedIn(true);
-      signIn(token, id);
-      console.log(id);
+      if (response.ok) {
+        const {
+          token,
+          user: { id },
+        } = await response.json();
+        setLoggedIn(true);
+        signIn(token, id);
+        console.log(id);
+      }
+    } catch (err) {
+      handleErrors(err);
     }
+  };
+
+  const handleDemoSubmit = async (e) => {
+    setEmail(demo.email);
+    setPassword(demo.password);
   };
 
   const updateEmail = (e) => setEmail(e.target.value);
@@ -77,6 +87,7 @@ const LoginForm = () => {
 
   return (
     <div className={classes.loginContainer}>
+      <div className=".errors-container"></div>
       <div className={classes.formContainer}>
         <form className={classes.form} onSubmit={handleSubmit}>
           <div className={classes.title}>
@@ -115,6 +126,8 @@ const LoginForm = () => {
               className={classes.button}
               color="primary"
               variant="contained"
+              onClick={handleDemoSubmit}
+              type="submit"
             >
               Demo Log In
             </Button>
