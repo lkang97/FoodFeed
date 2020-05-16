@@ -20,14 +20,14 @@ const useStyles = makeStyles((theme) => ({
     border: "1px solid grey",
     boxShadow: "0px 11px 35px 2px rgba(0, 0, 0, 0.14)",
     width: "300px",
-    height: "450px",
+    height: "auto",
     borderRadius: "1.2em",
   },
   form: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "5px",
+    paddingBottom: 20,
     width: "300px",
   },
   inputFields: {

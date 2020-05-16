@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import CssBaseline from "@material-ui/core/CssBaseline";
 
 import App from "./App";
@@ -22,10 +21,21 @@ const AppWithContext = () => {
     setNeedLogin(false);
   };
 
+  const logOut = () => {
+    window.localStorage.removeItem("food-feed-token");
+    window.localStorage.removeItem("food-feed-userId");
+    setAuthToken(localStorageToken);
+    setUserId(currentUserId);
+    setNeedLogin(true);
+    window.location.href = "/login";
+  };
+
   return (
     <Theme>
       <CssBaseline>
-        <UserContext.Provider value={{ authToken, userId, needLogin, signIn }}>
+        <UserContext.Provider
+          value={{ authToken, userId, needLogin, signIn, logOut }}
+        >
           <App />
         </UserContext.Provider>
       </CssBaseline>

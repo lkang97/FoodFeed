@@ -11,14 +11,13 @@ const useStyles = makeStyles((theme) => ({
   signUpContainer: {
     display: "flex",
     justifyContent: "center",
-    justifySelf: "center",
-    position: "relative",
+    paddingTop: 150,
   },
   formContainer: {
     border: "1px solid grey",
     boxShadow: "0px 11px 35px 2px rgba(0, 0, 0, 0.14)",
     width: "300px",
-    height: "380px",
+    height: "auto",
     borderRadius: "1.2em",
   },
   form: {
@@ -27,6 +26,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     padding: "5px",
     width: "300px",
+    paddingBottom: 20,
   },
   inputFields: {
     paddingBottom: "10px",

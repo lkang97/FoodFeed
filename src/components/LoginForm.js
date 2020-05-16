@@ -11,21 +11,22 @@ const useStyles = makeStyles((theme) => ({
   loginContainer: {
     display: "flex",
     justifyContent: "center",
-    justifySelf: "center",
-    position: "relative",
+    paddingTop: 150,
   },
   formContainer: {
+    display: "flex",
+    alignSelf: "center",
     border: "1px solid grey",
     boxShadow: "0px 11px 35px 2px rgba(0, 0, 0, 0.14)",
     width: "300px",
-    height: "350px",
+    height: "auto",
     borderRadius: "1.2em",
   },
   form: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    padding: "5px",
+    paddingBottom: "20px",
     width: "300px",
   },
   inputFields: {
