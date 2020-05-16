@@ -15,7 +15,6 @@ const MainFeed = () => {
       if (response.ok) {
         const { posts } = await response.json();
         setPosts(posts);
-        console.log(posts);
       }
     };
     getAllPosts();
@@ -27,8 +26,8 @@ const MainFeed = () => {
       <div>
         {posts.map((post) => {
           return (
-            <div>
-              <MainFeedPost key={post.id} post={post} />
+            <div key={post.id}>
+              <MainFeedPost post={post} />
             </div>
           );
         })}

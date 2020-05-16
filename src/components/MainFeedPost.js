@@ -41,6 +41,12 @@ const useStyles = makeStyles((theme) => ({
   postContainer: {
     paddingTop: 30,
   },
+  likesContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
   notLiked: {
     color: "black",
   },
@@ -52,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
 const MainFeedPost = (props) => {
   const classes = useStyles();
   const postId = props.post.id;
-  //   const [likes, setLikes] = useState([]);
+  const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const { userId } = useContext(UserContext);
 
@@ -61,6 +67,7 @@ const MainFeedPost = (props) => {
       const response = await fetch(`${apiBaseUrl}/posts/${postId}/likes`);
       if (response.ok) {
         const { userIds } = await response.json();
+        setLikes(userIds.length);
         if (userIds.includes(Number(userId))) {
           setLiked(true);
         } else {
@@ -69,26 +76,33 @@ const MainFeedPost = (props) => {
       }
     };
     getLikes();
-  }, []);
+  }, [liked]);
 
-  //   const handleLike = async () => {
-  //     if (!liked) {
-  //         const response = await fetch(`${apiBaseUrl}/posts/${postId}/likes`, {
-  //             method: "POST",
-  //             headers: { 'Content-Type': "application/json"},
-  //             body: JSON.stringify({userId})
-  //         });
-  //         if (response.ok) {
-  //             setLiked(true);
-  //         }
-  //     } else {
-  //         const response = await fetch()
-  //         setLiked(false);
-  //     }
-  //   };
+  const handleLike = async () => {
+    if (!liked) {
+      const response = await fetch(`${apiBaseUrl}/posts/${postId}/likes`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+      if (response.ok) {
+        setLiked(true);
+      }
+    } else {
+      const response = await fetch(`${apiBaseUrl}/posts/${postId}/likes`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ userId }),
+      });
+
+      if (response.status === 204) {
+        setLiked(false);
+      }
+    }
+  };
 
   return (
-    <div key={props.post.id} className={classes.postContainer}>
+    <div className={classes.postContainer}>
       <Card className={classes.root}>
         <CardContent className={classes.userInfo}>
           <Avatar className={classes.avatar} src={props.post.User.imageUrl} />
@@ -100,13 +114,16 @@ const MainFeedPost = (props) => {
         ></CardMedia>
 
         <CardContent>
-          <IconButton>
-            {liked ? (
-              <FavoriteIcon className={classes.liked} />
-            ) : (
-              <FavoriteBorderIcon className={classes.notLiked} />
-            )}
-          </IconButton>
+          <div className={classes.likesContainer}>
+            <IconButton onClick={handleLike}>
+              {liked ? (
+                <FavoriteIcon className={classes.liked} />
+              ) : (
+                <FavoriteBorderIcon className={classes.notLiked} />
+              )}
+            </IconButton>
+            {likes === 1 ? <div>1 like</div> : <div>{likes} likes</div>}
+          </div>
           <div></div>
         </CardContent>
       </Card>
