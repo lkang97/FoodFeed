@@ -1,12 +1,11 @@
 import React, { useState, useContext } from "react";
 
-import NavBar from "./NavBar";
-
 import { makeStyles } from "@material-ui/core/styles";
 import IconButton from "@material-ui/core/IconButton";
 import Avatar from "@material-ui/core/Avatar";
 import { TextField, Button } from "@material-ui/core/";
 import AddAPhotoIcon from "@material-ui/icons/AddAPhoto";
+import InputLabel from "@material-ui/core/InputLabel";
 
 import { apiBaseUrl } from "../config";
 import { useParams } from "react-router-dom";
@@ -19,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     justifySelf: "center",
     border: "1px solid grey",
     boxShadow: "0px 11px 35px 2px rgba(0, 0, 0, 0.14)",
-    width: "300px",
+    width: "500px",
     height: "auto",
     borderRadius: "1.2em",
   },
@@ -28,24 +27,44 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
     alignItems: "center",
     paddingBottom: 20,
-    width: "300px",
+    width: "500px",
   },
   inputFields: {
     paddingBottom: "10px",
+    paddingLeft: 20,
+    width: 270,
   },
   buttonContainer: {
-    padding: "5px",
+    padding: "10px",
   },
   button: {
     width: "200px",
   },
   paper: {
     position: "absolute",
-    width: 400,
+    width: 600,
     backgroundColor: theme.palette.background.paper,
     border: "2px solid #000",
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
+  },
+  inputGroup: {
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    paddingBottom: 10,
+  },
+  inputLabels: {
+    display: "flex",
+    alignSelf: "center",
+    justifyContent: "flex-end",
+    width: 120,
+    color: theme.palette.primary.main,
+    fontWeight: "bold",
+  },
+  avatar: {
+    height: 60,
+    width: 60,
   },
 }));
 
@@ -110,67 +129,80 @@ const EditProfile = (props) => {
   if (isUpdated) window.location.reload();
 
   return (
-    <div>
-      <NavBar />
-      <div className={classes.formContainer}>
-        <form className={classes.form} onSubmit={handleSubmit}>
-          <div>
-            <h2>Edit Profile</h2>
+    <div className={classes.formContainer}>
+      <form className={classes.form} onSubmit={handleSubmit}>
+        <div>
+          <h2>Edit Profile</h2>
+        </div>
+        <div className={classes.inputGroup}>
+          <Avatar className={classes.avatar} src={imageUrl}></Avatar>
+          <div className={classes.image}>
+            <IconButton>
+              <input
+                accept="image/*"
+                style={{ display: "none" }}
+                type="file"
+                id="raised-button-file"
+                onChange={uploadImage}
+              ></input>
+              <label htmlFor="raised-button-file">
+                <AddAPhotoIcon variant="raised"></AddAPhotoIcon>
+              </label>
+            </IconButton>
           </div>
-          <div>
-            <Avatar src={imageUrl}></Avatar>
-            <div>
-              <IconButton>
-                <input
-                  accept="image/*"
-                  style={{ display: "none" }}
-                  type="file"
-                  id="raised-button-file"
-                  onChange={uploadImage}
-                ></input>
-                <label htmlFor="raised-button-file">
-                  <AddAPhotoIcon variant="raised"></AddAPhotoIcon>
-                </label>
-              </IconButton>
-            </div>
-          </div>
+        </div>
+        <div className={classes.inputGroup}>
+          <InputLabel className={classes.inputLabels}>Profile Name:</InputLabel>
           <TextField
+            variant="outlined"
             className={classes.inputFields}
             color="primary"
             value={profileName}
             onChange={updateProfileName}
           ></TextField>
+        </div>
+        <div className={classes.inputGroup}>
+          <InputLabel className={classes.inputLabels}>Username: </InputLabel>
           <TextField
+            variant="outlined"
             className={classes.inputFields}
             color="primary"
             value={username}
             onChange={updateUsername}
           ></TextField>
+        </div>
+        <div className={classes.inputGroup}>
+          <InputLabel className={classes.inputLabels}>Email: </InputLabel>
           <TextField
+            variant="outlined"
             className={classes.inputFields}
             color="primary"
             value={email}
             onChange={updateEmail}
           ></TextField>
+        </div>
+        <div className={classes.inputGroup}>
+          <InputLabel className={classes.inputLabels}>Biography:</InputLabel>
           <TextField
+            variant="outlined"
             multiline
             className={classes.inputFields}
             color="primary"
             value={biography}
             onChange={updateBiography}
           ></TextField>
-          <div className={classes.buttonContainer}>
-            <Button
-              className={classes.button}
-              color="primary"
-              variant="contained"
-              type="submit"
-            >
-              Submit
-            </Button>
-          </div>
-        </form>
-      </div>
+        </div>
+        <div className={classes.buttonContainer}>
+          <Button
+            className={classes.button}
+            color="primary"
+            variant="contained"
+            type="submit"
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
     </div>
   );
 };

@@ -17,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     paddingTop: "30px",
     paddingBottom: "30px",
+    maxWidth: 1000,
   },
   profileImage: {
     height: "180px",
@@ -40,6 +41,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    height: "auto",
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
