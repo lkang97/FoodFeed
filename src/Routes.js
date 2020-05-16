@@ -20,3 +20,20 @@ export const ProtectedRoute = ({
     />
   );
 };
+
+export const AuthRoute = ({
+  component: Component,
+  path,
+  currentUserId,
+  exact,
+}) => {
+  return (
+    <Route
+      path={path}
+      exact={exact}
+      render={(props) =>
+        currentUserId ? <Redirect to="/main" /> : <Component {...props} />
+      }
+    />
+  );
+};

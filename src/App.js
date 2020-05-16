@@ -1,8 +1,8 @@
-import React from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import React, { useContext } from "react";
+import { BrowserRouter, Switch } from "react-router-dom";
 
-import { ProtectedRoute } from "./Routes";
-// import { UserContext } from "./UserContext";
+import { ProtectedRoute, AuthRoute } from "./Routes";
+import { UserContext } from "./UserContext";
 
 import Splash from "./components/Splash";
 import LoginForm from "./components/LoginForm";
@@ -11,16 +11,35 @@ import MainFeed from "./components/MainFeed";
 import Profile from "./components/Profile";
 
 const App = () => {
+  const { needLogin, userId } = useContext(UserContext);
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact={true} path="/" component={Splash}></Route>
-        <Route path="/login" component={LoginForm}></Route>
-        <Route path="/signup" component={SignUpForm}></Route>
-        <ProtectedRoute path="/main" component={MainFeed}></ProtectedRoute>
+        <AuthRoute
+          exact={true}
+          path="/"
+          currentUserId={userId}
+          component={Splash}
+        ></AuthRoute>
+        <AuthRoute
+          path="/login"
+          currentUserId={userId}
+          component={LoginForm}
+        ></AuthRoute>
+        <AuthRoute
+          path="/signup"
+          currentUserId={userId}
+          component={SignUpForm}
+        ></AuthRoute>
+        <ProtectedRoute
+          path="/main"
+          needLogin={needLogin}
+          component={MainFeed}
+        ></ProtectedRoute>
         <ProtectedRoute
           exact={true}
           path="/users/:id"
+          needLogin={needLogin}
           component={Profile}
         ></ProtectedRoute>
       </Switch>
