@@ -59,7 +59,7 @@ const MainFeedPost = (props) => {
   const postId = props.post.id;
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
-  const { userId } = useContext(UserContext);
+  const { userId, authToken } = useContext(UserContext);
 
   useEffect(() => {
     const getLikes = async () => {
@@ -81,7 +81,10 @@ const MainFeedPost = (props) => {
     if (!liked) {
       const response = await fetch(`${apiBaseUrl}/posts/${postId}/likes`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
         body: JSON.stringify({ userId }),
       });
       if (response.ok) {
@@ -90,7 +93,10 @@ const MainFeedPost = (props) => {
     } else {
       const response = await fetch(`${apiBaseUrl}/posts/${postId}/likes`, {
         method: "DELETE",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${authToken}`,
+        },
         body: JSON.stringify({ userId }),
       });
 

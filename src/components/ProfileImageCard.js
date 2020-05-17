@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Card from "@material-ui/core/Card";
@@ -8,6 +8,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 
 import { apiBaseUrl } from "../config";
 import { CardContent } from "@material-ui/core";
+import { UserContext } from "../UserContext";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,13 +46,16 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileImageCard = (props) => {
   const classes = useStyles();
+  const { authToken } = useContext(UserContext);
   const [open, setOpen] = useState();
   const [post, setPost] = useState({});
   const { postId } = props;
 
   const handleOpen = async () => {
     setOpen(true);
-    const response = await fetch(`${apiBaseUrl}/posts/${postId}`);
+    const response = await fetch(`${apiBaseUrl}/posts/${postId}`, {
+      headers: { Authorization: `Bearer ${authToken}` },
+    });
     if (response.ok) {
       const { post } = await response.json();
       setPost(post);

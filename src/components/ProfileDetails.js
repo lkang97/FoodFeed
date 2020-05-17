@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileDetails = () => {
   const classes = useStyles();
-  const { userId } = useContext(UserContext);
+  const { userId, authToken } = useContext(UserContext);
   const { id } = useParams();
   const [username, setUsername] = useState();
   const [profileName, setProfileName] = useState();
@@ -65,7 +65,9 @@ const ProfileDetails = () => {
 
   useEffect(() => {
     const getUserDetails = async (id) => {
-      const response = await fetch(`${apiBaseUrl}/users/${id}`);
+      const response = await fetch(`${apiBaseUrl}/users/${id}`, {
+        headers: { Authorization: `Bearer ${authToken}` },
+      });
       if (response.ok) {
         const {
           username,
@@ -82,7 +84,7 @@ const ProfileDetails = () => {
       }
     };
     getUserDetails(id);
-  }, [username, profileName, imageUrl, biography, id]);
+  }, [username, profileName, imageUrl, biography, id, authToken]);
 
   const handleOpen = async () => {
     setOpen(true);

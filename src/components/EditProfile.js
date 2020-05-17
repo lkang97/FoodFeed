@@ -118,6 +118,9 @@ const EditProfile = (props) => {
 
     const response = await fetch(`${apiBaseUrl}/upload`, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${authToken}`,
+      },
       body: formData,
     });
     if (response.ok) {
