@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
   username: {
     paddingLeft: 15,
+    paddingRight: 10,
     fontWeight: "bold",
     fontSize: 14,
     color: "black",
@@ -54,6 +55,17 @@ const useStyles = makeStyles((theme) => ({
   liked: {
     color: "red",
   },
+  date: {
+    color: "grey",
+    fontSize: 12,
+    paddingTop: 10,
+    paddingLeft: 15,
+  },
+  caption: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+  },
 }));
 
 const MainFeedPost = (props) => {
@@ -62,6 +74,7 @@ const MainFeedPost = (props) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const { userId, authToken } = useContext(UserContext);
+  const date = new Date(props.post.createdAt);
 
   useEffect(() => {
     const getLikes = async () => {
@@ -133,7 +146,18 @@ const MainFeedPost = (props) => {
             </IconButton>
             {likes === 1 ? <div>1 like</div> : <div>{likes} likes</div>}
           </div>
-          <div></div>
+          <div className={classes.caption}>
+            <a
+              className={classes.username}
+              href={`/users/${props.post.User.id}`}
+            >
+              {props.post.User.username}
+            </a>
+            <div>{props.post.caption}</div>
+          </div>
+          <div className={classes.date}>{`${
+            date.getMonth() + 1
+          }-${date.getDate()}-${date.getFullYear()}`}</div>
         </CardContent>
       </Card>
     </div>
