@@ -36,6 +36,8 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 15,
     fontWeight: "bold",
     fontSize: 14,
+    color: "black",
+    textDecoration: "none",
   },
   postContainer: {
     paddingTop: 30,
@@ -111,7 +113,9 @@ const MainFeedPost = (props) => {
       <Card className={classes.root}>
         <CardContent className={classes.userInfo}>
           <Avatar className={classes.avatar} src={props.post.User.imageUrl} />
-          <div className={classes.username}>{props.post.User.username}</div>
+          <a className={classes.username} href={`/users/${props.post.User.id}`}>
+            {props.post.User.username}
+          </a>
         </CardContent>
         <CardMedia
           className={classes.media}
