@@ -51,7 +51,7 @@ const LoginForm = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-
+  console.log(apiBaseUrl);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
