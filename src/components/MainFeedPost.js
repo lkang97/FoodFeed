@@ -10,6 +10,10 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { UserContext } from "../UserContext";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -72,7 +76,19 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    // width: "100%",
   },
+  // test: {
+  //   width: "100%",
+  //   border: "none",
+  // },
+  // actions: {
+  //   padding: 0,
+  // },
+  // expansion: {
+  //   display: "flex",
+  //   flexDirection: "column",
+  // },
 }));
 
 const MainFeedPost = (props) => {
@@ -141,6 +157,8 @@ const MainFeedPost = (props) => {
     }
   };
 
+  const handleCommentClick = () => {};
+
   return (
     <div className={classes.postContainer}>
       <Card className={classes.root}>
@@ -155,7 +173,7 @@ const MainFeedPost = (props) => {
           image={props.post.imageUrl}
         ></CardMedia>
 
-        <CardContent>
+        <CardContent className={classes.actions}>
           <div className={classes.actionsContainer}>
             <div className={classes.likesContainer}>
               <IconButton onClick={handleLike}>
@@ -168,9 +186,34 @@ const MainFeedPost = (props) => {
               {likes === 1 ? <div>1 like</div> : <div>{likes} likes</div>}
             </div>
             <IconButton>
-              <ChatBubbleOutlineIcon />
+              <ChatBubbleOutlineIcon onClick={handleCommentClick} />
             </IconButton>
           </div>
+          {/* <div className={classes.test}>
+            <ExpansionPanel square>
+              <ExpansionPanelSummary
+                className={classes.expansion}
+                expandIcon={<ChatBubbleOutlineIcon />}
+              >
+                <FormControlLabel
+                  onClick={(event) => event.stopPropagation()}
+                  onFocus={(event) => event.stopPropagation()}
+                  control={
+                    <IconButton onClick={handleLike}>
+                      {liked ? (
+                        <FavoriteIcon className={classes.liked} />
+                      ) : (
+                        <FavoriteBorderIcon className={classes.notLiked} />
+                      )}
+                    </IconButton>
+                  }
+                  label={
+                    likes === 1 ? <div>1 like</div> : <div>{likes} likes</div>
+                  }
+                ></FormControlLabel>
+              </ExpansionPanelSummary>
+            </ExpansionPanel>
+          </div> */}
           <div className={classes.caption}>
             <a
               className={classes.username}

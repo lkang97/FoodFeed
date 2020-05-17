@@ -118,6 +118,7 @@ const ProfileImages = () => {
                 key={post.id}
                 imageUrl={post.imageUrl}
                 postId={post.id}
+                post={post}
               />
             </GridListTile>
           );
