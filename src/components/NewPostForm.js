@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignSelf: "center",
     justifyContent: "flex-start",
-    color: theme.palette.primary.main,
+    color: "black",
     fontWeight: "bold",
   },
   preview: {
@@ -139,7 +139,7 @@ const NewPostForm = () => {
               <ImageIcon className={classes.preview} color="primary" />
             )}
           </Card>
-          <IconButton color="primary" className={classes.uploadButton}>
+          <IconButton className={classes.uploadButton}>
             <input
               accept="image/*"
               style={{ display: "none" }}
