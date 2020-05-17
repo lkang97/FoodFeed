@@ -26,7 +26,7 @@ const AppWithContext = () => {
     window.localStorage.removeItem("food-feed-userId");
     setAuthToken(localStorageToken);
     setUserId(currentUserId);
-    setNeedLogin(true);
+    setNeedLogin(!localStorageToken);
     window.location.href = "/login";
   };
 

@@ -80,6 +80,7 @@ const MainFeedPost = (props) => {
   const postId = props.post.id;
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
+  const [comments, setComments] = useState([]);
   const { userId, authToken } = useContext(UserContext);
   const date = new Date(props.post.createdAt);
 
@@ -98,6 +99,18 @@ const MainFeedPost = (props) => {
     };
     getLikes();
   }, [liked, userId, postId]);
+
+  useEffect(() => {
+    const getComments = async () => {
+      const response = await fetch(`${apiBaseUrl}/posts/${postId}/comments`);
+      if (response.ok) {
+        const { comments } = await response.json();
+        console.log(comments);
+        setComments(comments);
+      }
+    };
+    getComments();
+  }, [postId]);
 
   const handleLike = async () => {
     if (!liked) {
