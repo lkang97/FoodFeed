@@ -32,8 +32,8 @@ const App = () => {
           component={SignUpForm}
         ></AuthRoute>
         <ProtectedRoute
+          // needLogin={needLogin}
           path="/main"
-          needLogin={needLogin}
           component={MainFeed}
         ></ProtectedRoute>
         <ProtectedRoute

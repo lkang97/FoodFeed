@@ -9,6 +9,7 @@ import IconButton from "@material-ui/core/IconButton";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { UserContext } from "../UserContext";
+import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,6 +66,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
+  },
+  actionsContainer: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
 }));
 
@@ -136,15 +143,20 @@ const MainFeedPost = (props) => {
         ></CardMedia>
 
         <CardContent>
-          <div className={classes.likesContainer}>
-            <IconButton onClick={handleLike}>
-              {liked ? (
-                <FavoriteIcon className={classes.liked} />
-              ) : (
-                <FavoriteBorderIcon className={classes.notLiked} />
-              )}
+          <div className={classes.actionsContainer}>
+            <div className={classes.likesContainer}>
+              <IconButton onClick={handleLike}>
+                {liked ? (
+                  <FavoriteIcon className={classes.liked} />
+                ) : (
+                  <FavoriteBorderIcon className={classes.notLiked} />
+                )}
+              </IconButton>
+              {likes === 1 ? <div>1 like</div> : <div>{likes} likes</div>}
+            </div>
+            <IconButton>
+              <ChatBubbleOutlineIcon />
             </IconButton>
-            {likes === 1 ? <div>1 like</div> : <div>{likes} likes</div>}
           </div>
           <div className={classes.caption}>
             <a

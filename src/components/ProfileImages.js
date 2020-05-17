@@ -54,7 +54,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProfileImages = () => {
-  const { authToken } = useContext(UserContext);
+  const { authToken, userId } = useContext(UserContext);
   const classes = useStyles();
   const { id } = useParams();
   const [posts, setPosts] = useState([]);
@@ -85,24 +85,30 @@ const ProfileImages = () => {
   return (
     <div className={classes.imagesContainer}>
       <div className={classes.newPost}>
-        <Button onClick={handleOpen}>
-          <AddCircleIcon className={classes.addIcon} color="primary" />
-          <Typography className={classes.addText} color="primary">
-            New Post
-          </Typography>
-        </Button>
-        <Modal
-          className={classes.modal}
-          open={open}
-          onClose={handleClose}
-          closeAfterTransition
-          BackdropComponent={Backdrop}
-          BackdropProps={{ timeout: 500 }}
-        >
-          <div className={classes.paper}>
-            <NewPostForm />
+        {userId === id ? (
+          <div>
+            <Button onClick={handleOpen}>
+              <AddCircleIcon className={classes.addIcon} color="primary" />
+              <Typography className={classes.addText} color="primary">
+                New Post
+              </Typography>
+            </Button>
+            <Modal
+              className={classes.modal}
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{ timeout: 500 }}
+            >
+              <div className={classes.paper}>
+                <NewPostForm />
+              </div>
+            </Modal>
           </div>
-        </Modal>
+        ) : (
+          <div></div>
+        )}
       </div>
       <GridList cellHeight={330} cols={3}>
         {posts.map((post) => {
