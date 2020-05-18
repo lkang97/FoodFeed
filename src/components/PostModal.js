@@ -13,6 +13,8 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { UserContext } from "../UserContext";
 import { apiBaseUrl } from "../config";
 
+import SingleComment from "./SingleComment";
+
 const useStyles = makeStyles((theme) => ({
   paper: {
     backgroundColor: theme.palette.background.paper,
@@ -102,6 +104,8 @@ const PostModal = (props) => {
   const [userImage, setUserImage] = useState(props.post.User.imageUrl);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
+  const [comments, setComments] = useState([]);
+
   const postId = props.post.id;
   const date = new Date(post.createdAt);
 
@@ -120,6 +124,18 @@ const PostModal = (props) => {
     };
     getLikes();
   }, [liked, userId, postId]);
+
+  useEffect(() => {
+    const getComments = async () => {
+      const response = await fetch(`${apiBaseUrl}/posts/${postId}/comments`);
+      if (response.ok) {
+        const { comments } = await response.json();
+        console.log(comments);
+        setComments(comments);
+      }
+    };
+    getComments();
+  }, [postId]);
 
   const handleLike = async () => {
     if (!liked) {
@@ -177,6 +193,9 @@ const PostModal = (props) => {
                 date.getMonth() + 1
               }-${date.getDate()}-${date.getFullYear()}`}</div>
             </div>
+            {comments.map((comment) => {
+              return <SingleComment key={comment.id} comment={comment} />;
+            })}
           </CardContent>
           <CardContent className={classes.actionContainer}>
             <div className={classes.likesContainer}>

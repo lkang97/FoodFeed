@@ -52,7 +52,9 @@ const ProfileImageCard = (props) => {
           timeout: 500,
         }}
       >
-        <PostModal {...props} />
+        <div>
+          <PostModal post={post} />
+        </div>
       </Modal>
     </Card>
   );
