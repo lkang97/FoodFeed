@@ -10,10 +10,9 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { UserContext } from "../UserContext";
 import ChatBubbleOutlineIcon from "@material-ui/icons/ChatBubbleOutline";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import PostModal from "./PostModal";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -76,19 +75,12 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    // width: "100%",
   },
-  // test: {
-  //   width: "100%",
-  //   border: "none",
-  // },
-  // actions: {
-  //   padding: 0,
-  // },
-  // expansion: {
-  //   display: "flex",
-  //   flexDirection: "column",
-  // },
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
 }));
 
 const MainFeedPost = (props) => {
@@ -96,9 +88,10 @@ const MainFeedPost = (props) => {
   const postId = props.post.id;
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
-  const [comments, setComments] = useState([]);
+  const [open, setOpen] = useState();
   const { userId, authToken } = useContext(UserContext);
   const date = new Date(props.post.createdAt);
+  const [reload, setReload] = useState(false);
 
   useEffect(() => {
     const getLikes = async () => {
@@ -111,22 +104,11 @@ const MainFeedPost = (props) => {
         } else {
           setLiked(false);
         }
+        setReload(false);
       }
     };
     getLikes();
-  }, [liked, userId, postId]);
-
-  useEffect(() => {
-    const getComments = async () => {
-      const response = await fetch(`${apiBaseUrl}/posts/${postId}/comments`);
-      if (response.ok) {
-        const { comments } = await response.json();
-        console.log(comments);
-        setComments(comments);
-      }
-    };
-    getComments();
-  }, [postId]);
+  }, [liked, userId, postId, reload]);
 
   const handleLike = async () => {
     if (!liked) {
@@ -157,7 +139,14 @@ const MainFeedPost = (props) => {
     }
   };
 
-  const handleCommentClick = () => {};
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setReload(true);
+  };
 
   return (
     <div className={classes.postContainer}>
@@ -186,34 +175,23 @@ const MainFeedPost = (props) => {
               {likes === 1 ? <div>1 like</div> : <div>{likes} likes</div>}
             </div>
             <IconButton>
-              <ChatBubbleOutlineIcon onClick={handleCommentClick} />
+              <ChatBubbleOutlineIcon onClick={handleOpen} />
             </IconButton>
+            <Modal
+              className={classes.modal}
+              open={open}
+              onClose={handleClose}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
+            >
+              <div>
+                <PostModal post={props.post} />
+              </div>
+            </Modal>
           </div>
-          {/* <div className={classes.test}>
-            <ExpansionPanel square>
-              <ExpansionPanelSummary
-                className={classes.expansion}
-                expandIcon={<ChatBubbleOutlineIcon />}
-              >
-                <FormControlLabel
-                  onClick={(event) => event.stopPropagation()}
-                  onFocus={(event) => event.stopPropagation()}
-                  control={
-                    <IconButton onClick={handleLike}>
-                      {liked ? (
-                        <FavoriteIcon className={classes.liked} />
-                      ) : (
-                        <FavoriteBorderIcon className={classes.notLiked} />
-                      )}
-                    </IconButton>
-                  }
-                  label={
-                    likes === 1 ? <div>1 like</div> : <div>{likes} likes</div>
-                  }
-                ></FormControlLabel>
-              </ExpansionPanelSummary>
-            </ExpansionPanel>
-          </div> */}
           <div className={classes.caption}>
             <a
               className={classes.username}

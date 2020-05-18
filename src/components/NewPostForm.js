@@ -96,12 +96,9 @@ const NewPostForm = () => {
   };
 
   const uploadImage = async (e) => {
-    console.log(e.target.files);
     const formData = new FormData();
     formData.append("image", e.target.files[0]);
     setFile(e.target.files[0]);
-    const image = formData.get("image");
-    console.log(image);
 
     const response = await fetch(`${apiBaseUrl}/upload`, {
       method: "POST",

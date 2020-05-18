@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import Button from "@material-ui/core/Button";
 import { CardContent } from "@material-ui/core";
-import CardActionArea from "@material-ui/core/CardActionArea";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import Avatar from "@material-ui/core/Avatar";
@@ -14,6 +13,7 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import { UserContext } from "../UserContext";
 import { apiBaseUrl } from "../config";
 import TextField from "@material-ui/core/TextField";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 import SingleComment from "./SingleComment";
 
@@ -94,8 +94,9 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
   },
   commentContainer: {
-    maxHeight: 420,
+    height: 420,
     overflowY: "auto",
+    padding: "15px 5px",
   },
   newCommentForm: {
     display: "flex",
@@ -105,7 +106,7 @@ const useStyles = makeStyles((theme) => ({
     height: "auto",
   },
   inputField: {
-    height: 20,
+    height: 30,
     marginLeft: 18,
   },
   buttonContainer: {
@@ -115,14 +116,20 @@ const useStyles = makeStyles((theme) => ({
   formContainer: {
     margin: 0,
   },
+  comment: {
+    marginBottom: 5,
+  },
+  delete: {
+    paddingLeft: 130,
+  },
 }));
 
 const PostModal = (props) => {
   const classes = useStyles();
   const { userId, authToken } = useContext(UserContext);
-  const [post, setPost] = useState(props.post);
-  const [username, setUsername] = useState(props.post.User.username);
-  const [userImage, setUserImage] = useState(props.post.User.imageUrl);
+  const [post] = useState(props.post);
+  const [username] = useState(props.post.User.username);
+  const [userImage] = useState(props.post.User.imageUrl);
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [comments, setComments] = useState([]);
@@ -153,7 +160,6 @@ const PostModal = (props) => {
       const response = await fetch(`${apiBaseUrl}/posts/${postId}/comments`);
       if (response.ok) {
         const { comments } = await response.json();
-        console.log(comments);
         setComments(comments);
         setIsUpdated(false);
       }
@@ -206,6 +212,20 @@ const PostModal = (props) => {
     }
   };
 
+  const handleDelete = async () => {
+    const response = await fetch(`${apiBaseUrl}/posts/${postId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify({ userId }),
+    });
+    if (response.ok) {
+      window.location.reload();
+    }
+  };
+
   const updateNewComment = (e) => setNewComment(e.target.value);
 
   return (
@@ -222,10 +242,19 @@ const PostModal = (props) => {
               <a className={classes.username} href={`/users/${userId}`}>
                 {username}
               </a>
+              {Number(userId) === post.userId ? (
+                <div className={classes.delete}>
+                  <IconButton onClick={handleDelete}>
+                    <DeleteIcon />
+                  </IconButton>
+                </div>
+              ) : (
+                <div></div>
+              )}
             </div>
           </CardContent>
           <CardContent className={classes.commentContainer}>
-            <div>
+            <div className={classes.comment}>
               <div className={classes.captionInfo}>
                 <a className={classes.username} href={`/users/${userId}`}>
                   {username}
@@ -255,6 +284,7 @@ const PostModal = (props) => {
               <form className={classes.newCommentForm} onSubmit={handleSubmit}>
                 <TextField
                   multiline
+                  rowsMax={1}
                   fullWidth
                   color="primary"
                   placeholder="Add Comment"

@@ -68,7 +68,6 @@ const ProfileImages = () => {
       if (response.ok) {
         const { posts } = await response.json();
         setPosts(posts);
-        console.log(posts);
       }
     };
 

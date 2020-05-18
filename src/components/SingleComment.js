@@ -3,7 +3,10 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
-  captionInfo: {
+  comment: {
+    marginBottom: 5,
+  },
+  commentBox: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
@@ -32,8 +35,8 @@ const SingleComment = (props) => {
   console.log(comment);
   const date = new Date(comment.createdAt);
   return (
-    <div>
-      <div className={classes.captionInfo}>
+    <div className={classes.comment}>
+      <div className={classes.commentBox}>
         <a className={classes.username} href={`/users/${user.id}`}>
           {user.username}
         </a>

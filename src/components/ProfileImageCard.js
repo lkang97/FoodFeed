@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 const ProfileImageCard = (props) => {
   const classes = useStyles();
   const [open, setOpen] = useState();
-  const [post, setPost] = useState(props.post);
+  const [post] = useState(props.post);
 
   const handleOpen = () => {
     setOpen(true);

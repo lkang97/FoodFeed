@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Redirect } from "react-router-dom";
 
 import { UserContext } from "../UserContext";
 import { apiBaseUrl } from "../config";
@@ -51,6 +50,7 @@ const SignUpForm = () => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [userId, setUserId] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -76,6 +76,7 @@ const SignUpForm = () => {
           token,
           user: { id },
         } = await response.json();
+        setUserId(id);
         setLoggedIn(true);
         signIn(token, id);
       } else {
@@ -90,7 +91,7 @@ const SignUpForm = () => {
   const updateEmail = (e) => setEmail(e.target.value);
   const updatePassword = (e) => setPassword(e.target.value);
 
-  if (loggedIn) return <Redirect to="/main" />;
+  if (loggedIn) window.location.href = `/users/${userId}`;
 
   return (
     <div className={classes.signUpContainer}>
