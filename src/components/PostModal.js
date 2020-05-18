@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 
+import Button from "@material-ui/core/Button";
 import { CardContent } from "@material-ui/core";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Card from "@material-ui/core/Card";
@@ -12,6 +13,7 @@ import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { UserContext } from "../UserContext";
 import { apiBaseUrl } from "../config";
+import TextField from "@material-ui/core/TextField";
 
 import SingleComment from "./SingleComment";
 
@@ -87,12 +89,31 @@ const useStyles = makeStyles((theme) => ({
   actionContainer: {
     borderTop: "1px solid lightgray",
     justifySelf: "flex-end",
-    height: 50,
+    height: 70,
     padding: 0,
+    margin: 0,
   },
   commentContainer: {
-    minHeight: 450,
+    maxHeight: 420,
     overflowY: "auto",
+  },
+  newCommentForm: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "auto",
+  },
+  inputField: {
+    height: 20,
+    marginLeft: 18,
+  },
+  buttonContainer: {
+    height: 20,
+    margin: 5,
+  },
+  formContainer: {
+    margin: 0,
   },
 }));
 
@@ -105,6 +126,8 @@ const PostModal = (props) => {
   const [likes, setLikes] = useState([]);
   const [liked, setLiked] = useState(false);
   const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState();
+  const [isUpdated, setIsUpdated] = useState(false);
 
   const postId = props.post.id;
   const date = new Date(post.createdAt);
@@ -132,10 +155,27 @@ const PostModal = (props) => {
         const { comments } = await response.json();
         console.log(comments);
         setComments(comments);
+        setIsUpdated(false);
       }
     };
     getComments();
-  }, [postId]);
+  }, [postId, isUpdated]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`${apiBaseUrl}/posts/${postId}/comments`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+      body: JSON.stringify({ comment: newComment, userId }),
+    });
+    if (response.ok) {
+      setNewComment("");
+      setIsUpdated(true);
+    }
+  };
 
   const handleLike = async () => {
     if (!liked) {
@@ -165,6 +205,9 @@ const PostModal = (props) => {
       }
     }
   };
+
+  const updateNewComment = (e) => setNewComment(e.target.value);
+
   return (
     <div className={classes.paper}>
       <Card className={classes.modalContainer}>
@@ -207,6 +250,25 @@ const PostModal = (props) => {
                 )}
               </IconButton>
               {likes === 1 ? <div>1 like</div> : <div>{likes} likes</div>}
+            </div>
+            <div className={classes.formContainer}>
+              <form className={classes.newCommentForm} onSubmit={handleSubmit}>
+                <TextField
+                  multiline
+                  fullWidth
+                  color="primary"
+                  placeholder="Add Comment"
+                  className={classes.inputField}
+                  value={newComment}
+                  onChange={updateNewComment}
+                ></TextField>
+
+                <div className={classes.buttonContainer}>
+                  <Button size="small" type="submit">
+                    Post
+                  </Button>
+                </div>
+              </form>
             </div>
           </CardContent>
         </div>
