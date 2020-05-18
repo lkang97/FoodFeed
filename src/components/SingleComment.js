@@ -32,7 +32,6 @@ const SingleComment = (props) => {
 
   const comment = props.comment;
   const user = props.comment.User;
-  console.log(comment);
   const date = new Date(comment.createdAt);
   return (
     <div className={classes.comment}>

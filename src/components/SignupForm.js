@@ -139,7 +139,7 @@ const SignUpForm = () => {
             </Button>
           </div>
           <div>
-            <a href="/login">Already have an account? Log in</a>
+            <a href="/">Already have an account? Log in</a>
           </div>
         </form>
       </div>

@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   userInfo: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "flex-start",
+    justifyContent: "space-between",
     height: 45,
     alignItems: "center",
     borderBottom: "1px solid lightgray",
@@ -119,8 +119,10 @@ const useStyles = makeStyles((theme) => ({
   comment: {
     marginBottom: 5,
   },
-  delete: {
-    paddingLeft: 130,
+  user: {
+    display: "flex",
+    justifySelf: "flex-start",
+    alignItems: "center",
   },
 }));
 
@@ -238,12 +240,14 @@ const PostModal = (props) => {
         <div className={classes.postInfo}>
           <CardContent className={classes.modalContent}>
             <div className={classes.userInfo}>
-              <Avatar className={classes.avatar} src={userImage} />
-              <a className={classes.username} href={`/users/${userId}`}>
-                {username}
-              </a>
+              <div className={classes.user}>
+                <Avatar className={classes.avatar} src={userImage} />
+                <a className={classes.username} href={`/users/${userId}`}>
+                  {username}
+                </a>
+              </div>
               {Number(userId) === post.userId ? (
-                <div className={classes.delete}>
+                <div>
                   <IconButton onClick={handleDelete}>
                     <DeleteIcon />
                   </IconButton>
