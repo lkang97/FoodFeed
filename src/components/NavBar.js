@@ -75,22 +75,24 @@ const NavBar = () => {
             FoodFeed
           </Typography>
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton color="inherit" href="/main">
-              <HomeIcon />
-            </IconButton>
-            <IconButton color="inherit" href={`/users/${userId}`}>
-              <PersonIcon />
-            </IconButton>
-            <IconButton
-              color="inherit"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-            >
-              <SettingsIcon />
-            </IconButton>
-          </div>
+          {userId && (
+            <div className={classes.sectionDesktop}>
+              <IconButton color="inherit" href="/main">
+                <HomeIcon />
+              </IconButton>
+              <IconButton color="inherit" href={`/users/${userId}`}>
+                <PersonIcon />
+              </IconButton>
+              <IconButton
+                color="inherit"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+              >
+                <SettingsIcon />
+              </IconButton>
+            </div>
+          )}
         </Toolbar>
       </AppBar>
       <Toolbar />

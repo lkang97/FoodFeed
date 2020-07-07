@@ -9,11 +9,15 @@ import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignupForm";
 import MainFeed from "./components/MainFeed";
 import Profile from "./components/Profile";
+import NavBar from "./components/NavBar";
 
 const App = () => {
   const { needLogin, userId } = useContext(UserContext);
   return (
     <BrowserRouter>
+      <header>
+        <NavBar />
+      </header>
       <Switch>
         <AuthRoute
           exact={true}
