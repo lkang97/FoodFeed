@@ -27,7 +27,7 @@ const AppWithContext = () => {
     setAuthToken(localStorageToken);
     setUserId(currentUserId);
     setNeedLogin(!localStorageToken);
-    window.location.href = "/login";
+    window.location.href = "/";
   };
 
   return (

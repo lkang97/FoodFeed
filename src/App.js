@@ -21,11 +21,11 @@ const App = () => {
           currentUserId={userId}
           component={Splash}
         ></AuthRoute>
-        <AuthRoute
+        {/* <AuthRoute
           path="/login"
           currentUserId={userId}
           component={LoginForm}
-        ></AuthRoute>
+        ></AuthRoute> */}
         <AuthRoute
           path="/signup"
           currentUserId={userId}
@@ -33,6 +33,7 @@ const App = () => {
         ></AuthRoute>
         <ProtectedRoute
           // needLogin={needLogin}
+          exact={true}
           path="/main"
           component={MainFeed}
         ></ProtectedRoute>

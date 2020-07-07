@@ -7,6 +7,7 @@ import { apiBaseUrl, demo } from "../config";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button } from "@material-ui/core/";
+import InputLabel from "@material-ui/core/InputLabel";
 
 const useStyles = makeStyles((theme) => ({
   loginContainer: {
@@ -51,7 +52,7 @@ const LoginForm = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  console.log(apiBaseUrl);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -96,6 +97,7 @@ const LoginForm = () => {
           <div className="errors-container"></div>
           <TextField
             className={classes.inputFields}
+            autoFocus
             color="primary"
             label="Email"
             variant="outlined"
