@@ -76,6 +76,7 @@ const NewPostForm = () => {
   const [isUpdated, setIsUpdated] = useState(false);
   const [file, setFile] = useState();
 
+  //Sends fetch request to handle creation of new post
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`${apiBaseUrl}/posts`, {
@@ -95,6 +96,7 @@ const NewPostForm = () => {
     }
   };
 
+  //Uploads image to aws s3
   const uploadImage = async (e) => {
     const formData = new FormData();
     formData.append("image", e.target.files[0]);

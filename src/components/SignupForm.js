@@ -52,6 +52,7 @@ const SignUpForm = () => {
   const [password, setPassword] = useState();
   const [userId, setUserId] = useState();
 
+  //Grabs user information from form and sends it to create a new user
   const handleSubmit = async (e) => {
     e.preventDefault();
     const body = {
@@ -91,6 +92,7 @@ const SignUpForm = () => {
   const updateEmail = (e) => setEmail(e.target.value);
   const updatePassword = (e) => setPassword(e.target.value);
 
+  //If everything works the page will redirect to user's profile page
   if (loggedIn) window.location.href = `/users/${userId}`;
 
   return (
@@ -103,6 +105,7 @@ const SignUpForm = () => {
           <div className="errors-container"></div>
           <TextField
             className={classes.inputFields}
+            autoFocus
             color="primary"
             label="Username"
             variant="outlined"

@@ -141,6 +141,7 @@ const PostModal = (props) => {
   const postId = props.post.id;
   const date = new Date(post.createdAt);
 
+  //Listens for change and updates the number of likes on a post
   useEffect(() => {
     const getLikes = async () => {
       const response = await fetch(`${apiBaseUrl}/posts/${postId}/likes`);
@@ -157,6 +158,7 @@ const PostModal = (props) => {
     getLikes();
   }, [liked, userId, postId]);
 
+  //Listens for changes and updates the comments on a post
   useEffect(() => {
     const getComments = async () => {
       const response = await fetch(`${apiBaseUrl}/posts/${postId}/comments`);
@@ -169,6 +171,7 @@ const PostModal = (props) => {
     getComments();
   }, [postId, isUpdated]);
 
+  //Sends fetch request for comment and updates state to render it
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await fetch(`${apiBaseUrl}/posts/${postId}/comments`, {
@@ -185,6 +188,7 @@ const PostModal = (props) => {
     }
   };
 
+  //Will create/delete a like and render the view based off of state
   const handleLike = async () => {
     if (!liked) {
       const response = await fetch(`${apiBaseUrl}/posts/${postId}/likes`, {
@@ -214,6 +218,7 @@ const PostModal = (props) => {
     }
   };
 
+  //Handles the deletion of a post if post owner is the same as current user
   const handleDelete = async () => {
     const response = await fetch(`${apiBaseUrl}/posts/${postId}`, {
       method: "DELETE",
