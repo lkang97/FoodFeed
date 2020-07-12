@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+//Renders a single comment on a post
 const SingleComment = (props) => {
   const classes = useStyles();
 

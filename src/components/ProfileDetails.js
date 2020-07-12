@@ -63,6 +63,7 @@ const ProfileDetails = () => {
 
   const [open, setOpen] = useState();
 
+  //Grabs the user details based off of user id in the path
   useEffect(() => {
     const getUserDetails = async (id) => {
       const response = await fetch(`${apiBaseUrl}/users/${id}`, {
@@ -86,10 +87,12 @@ const ProfileDetails = () => {
     getUserDetails(id);
   }, [username, profileName, imageUrl, biography, id, authToken]);
 
+  //Handle opening of edit profile modal
   const handleOpen = async () => {
     setOpen(true);
   };
 
+  //Handles closing of edit profile modal
   const handleClose = () => {
     setOpen(false);
   };
