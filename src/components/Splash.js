@@ -19,9 +19,9 @@ const Splash = () => {
 
   return (
     <div className="splash">
-      <div className={classes.splashImage}>
+      {/* <div className={classes.splashImage}>
         <img className={classes.splashImage} src={splashImg} alt="splash-img" />
-      </div>
+      </div> */}
       <LoginForm />
     </div>
   );
