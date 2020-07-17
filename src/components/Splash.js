@@ -4,15 +4,15 @@ import LoginForm from "./LoginForm";
 
 import { makeStyles } from "@material-ui/core/styles";
 
-const useStyles = makeStyles((theme) => ({
-  splashContainer: {
-    display: "flex",
-    flexDirection: "column",
-  },
-  splashImage: {
-    height: 300,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   splashContainer: {
+//     display: "flex",
+//     flexDirection: "column",
+//   },
+//   splashImage: {
+//     height: 300,
+//   },
+// }));
 
 const Splash = () => {
   // const classes = useStyles();
