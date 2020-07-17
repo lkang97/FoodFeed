@@ -5,7 +5,7 @@ import { ProtectedRoute, AuthRoute } from "./Routes";
 import { UserContext } from "./UserContext";
 
 import Splash from "./components/Splash";
-import LoginForm from "./components/LoginForm";
+// import LoginForm from "./components/LoginForm";
 import SignUpForm from "./components/SignupForm";
 import MainFeed from "./components/MainFeed";
 import Profile from "./components/Profile";

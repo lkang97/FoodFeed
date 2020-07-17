@@ -1,6 +1,6 @@
 import React from "react";
 import LoginForm from "./LoginForm";
-import splashImg from "../images/splash.png";
+// import splashImg from "../images/splash.png";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Splash = () => {
-  const classes = useStyles();
+  // const classes = useStyles();
 
   return (
     <div className="splash">

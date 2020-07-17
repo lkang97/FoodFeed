@@ -7,7 +7,6 @@ import { apiBaseUrl, demo } from "../config";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { TextField, Button } from "@material-ui/core/";
-import InputLabel from "@material-ui/core/InputLabel";
 
 const useStyles = makeStyles((theme) => ({
   loginContainer: {
