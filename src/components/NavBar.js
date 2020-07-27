@@ -64,6 +64,18 @@ const NavBar = () => {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={logOut}>Log out</MenuItem>
+      <MenuItem
+        onClick={() => window.open("https://github.com/lkang97/FoodFeed")}
+      >
+        Github
+      </MenuItem>
+      <MenuItem
+        onClick={() =>
+          window.open("https://www.linkedin.com/in/lisa-kang-a084641aa/")
+        }
+      >
+        LinkedIn
+      </MenuItem>
     </Menu>
   );
 
