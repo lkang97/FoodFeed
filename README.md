@@ -2,7 +2,7 @@
 
 FoodFeed is a photo sharing application for food enthusiasts, inspired by Instagram. Users can create posts, upload images, comment and like each other's posts.
 
-Check out the app: [Live Demo](https://foodfeed-frontend.herokuapp.com/)
+Check out the app: [Live Demo](https://foodfeed.netlify.app/)
 
 [FoodFeed Backend](https://github.com/lkang97/FoodFeed-Backend)
 
